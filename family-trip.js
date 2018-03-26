@@ -4,7 +4,6 @@ const moment = require('moment');
 const baseUrl = 'http://dataservice.accuweather.com';
 const apiKey = 'S1BrKQvtCrlQ2EIxflcmKZlkemjUAcsS';
 
-
 function encodeQueryData(data) {
    let ret = [];
    for (let d in data)
@@ -12,8 +11,7 @@ function encodeQueryData(data) {
    return ret.join('&');
 }
 
-function getLocationKey(){
-  let latlng = '13.7978215,100.5239869';
+function getLocationKey(latlng){
   var data = { 'apikey': apiKey, 'q': latlng, 'language': 'th-th' };
   var querystring = encodeQueryData(data);
   axios.get(baseUrl+'/locations/v1/cities/geoposition/search?'+querystring)
@@ -31,17 +29,21 @@ function forecasts(locKey){
   var querystring = encodeQueryData(data);
   axios.get(baseUrl+'/forecasts/v1/daily/5day/'+locKey+'?'+querystring)
     .then(response => {
-      for (var i = response.data.DailyForecasts.length - 1; i >= 0; i--) {
-        var data = response.data.DailyForecasts[i];
-        console.log("วันที่:",moment(data.Date).format('DD/MM/YYYY'));
-        console.log("กลางวัน:",data.Day.IconPhrase);
-        console.log("กลางคืน:",data.Night.IconPhrase);
-        console.log("อุณหภูมิ:",data.Temperature.Minimum.Value+'-'+data.Temperature.Maximum.Value);
-      }
+      displayData(response.data.DailyForecasts);
     })
     .catch(error => {
       console.log(error);
     });
 }
 
-getLocationKey();
+function displayData(datas){
+  datas.forEach(function(data) {
+    console.log("/////////////////////////////////////////////");
+    console.log("วันที่:",moment(data.Date).format('DD/MM/YYYY'));
+    console.log("กลางวัน:",data.Day.IconPhrase);
+    console.log("กลางคืน:",data.Night.IconPhrase);
+    console.log("อุณหภูมิ:",data.Temperature.Minimum.Value+'-'+data.Temperature.Maximum.Value);
+  });
+}
+
+getLocationKey('13.7978215,100.5239869');
