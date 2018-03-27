@@ -74,3 +74,16 @@ export let hideViewButton = (status) => {
   return dispatch(disableViewButton(status));
  }
 }
+
+export let getCenterMap = (payload) => {
+    return {
+        type : 'Get_Center_Map',
+        payload: payload
+    }
+}
+
+export let setCenterMap = (center) => {
+ return (dispatch) => {
+  return dispatch(getCenterMap(center));
+ }
+}
