@@ -7,7 +7,7 @@ export let foursquare = (state={isFetching : false, items : []},action) => {
         case 'End_Search':
             return{
                 isFetching : false,
-                items : action.items
+                items : action.payload
             }
         default:   
             return state;

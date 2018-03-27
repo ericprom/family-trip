@@ -13,14 +13,14 @@ export let startSearch = () => {
     }
 }
 
-export let endSearch = (items) => {
+export let endSearch = (payload) => {
     return {
         type : 'End_Search',
-        items
+        payload: payload
     }
 }
 
-function encodeQueryData(data){
+export let encodeQueryData = (data) =>{
   let ret = [];
   for (let d in data)
     ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
@@ -33,11 +33,12 @@ export let fetchData = (path, queryObj = {}) => {
     'client_secret': fourSquare.clientSecret, 
     'locale': 'th', 
     'v': moment().format('YYYYMMDD') }, queryObj)
-  let url = fourSquare.baseUrl + path + encodeQueryData(query)
+  let url = fourSquare.baseUrl + path + this.encodeQueryData(query)
   return (dispatch) => {
     dispatch(startSearch())
     return axios.get(url).then(
       (response) => {
+        console.log(response.data.response);
         if(response.data.response.categories){
           dispatch(endSearch(response.data.response.categories));
         }

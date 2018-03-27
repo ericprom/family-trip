@@ -12,7 +12,8 @@ class CategoryItem extends React.Component {
   render() {
     return (
         <ListGroupItem>
-          <span
+          <img src={this.props.data.icon.prefix+'bg_32'+this.props.data.icon.suffix}/>
+          <span style={{marginLeft: 10+'px'}}
             onClick={() => this.props.onToggleClick(this.props.data)}>
             {this.props.data.name}
           </span>
