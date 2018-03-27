@@ -1,8 +1,10 @@
 import React from 'react';
-import CategoryItem from '../CategoryItem';
+import ListGroupItem from '../ListGroupItem';
 import {Col, Grid, ListGroup, Row} from 'react-bootstrap';
 import axios from 'axios';
 import moment from 'moment';
+import {connect} from 'react-redux';
+let actions = require('../../actions/index')
 
 class Content extends React.Component {
 
@@ -20,92 +22,47 @@ class Content extends React.Component {
   }
 
   componentDidMount() {
-    this.loadCategories();
+    this.props.fetchData('venues/categories?');
   }
-
-  encodeQueryData = (data) => {
-    let ret = [];
-    for (let d in data)
-      ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
-    return ret.join('&');
-  }
-
-  loadCategories = () => {
-    var query = { 
-      'client_id': this.state.clientId, 
-      'client_secret': this.state.clientSecret, 
-      'locale': 'th', 
-      'v': moment().format('YYYYMMDD') };
-    
-    axios.get(this.state.baseUrl+'venues/categories?'+ this.encodeQueryData(query))
-      .then(response => {
-        this.setState(prevState => ({
-          categories: response.data.response.categories
-        }));
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  };
-
-  getVenues = (data) => {
-    var query = { 
-      'client_id': this.state.clientId, 
-      'client_secret': this.state.clientSecret, 
-      'locale': 'th', 
-      'v': moment().format('YYYYMMDD'),
-      'll': '12.7520739,99.7076712',
-      'categoryId': data.id
-    };
-    
-    axios.get(this.state.baseUrl+'venues/search?'+ this.encodeQueryData(query))
-      .then(response => {
-        console.log(response.data.response);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  };
 
   onToggleClick = (data) => {
-    // const { opened } = this.state;
-    // this.setState({
-    //   opened: !opened,
-    // });
-    // this.getVenues(data);
-
-    if(data.categories.length > 0){
-      this.setState(prevState => ({
-        categories: data.categories
-      }));
-    }
+    this.props.fetchData('venues/search?',{
+      'll': '12.7520739,99.7076712',
+      'categoryId': data.id
+    });
   };
 
+
   render() {
-
-    const { categories, opened } = this.state;
-
-    let items = <ListGroup style={{textAlign: 'left'}}>
-                      {categories.map((item, id) => {
-                        return <CategoryItem 
-                          key={id} id={id} data={item}
-                          onToggleClick={this.onToggleClick}/>;
-                      })}
-                    </ListGroup>;
-    return (
-        <Grid>
+    let {foursquare} = this.props
+    let result = <p>Loading</p>;
+    if(foursquare.isFetching === true){
+      result = result;
+    }
+    else if(foursquare.isFetching === false && foursquare.items.length >= 1){
+      result = <Grid>
           <Row>
-            <Col xs={12} md={4}>
-              {items}
-            </Col>
-            <Col xs={12} md={8}>
-
+            <Col xs={4}>
+              <ListGroup style={{textAlign: 'left'}}>
+                {
+                  foursquare.items.map((item, id) => {
+                    return <ListGroupItem 
+                      key={id} id={id} data={item}
+                      onToggleClick={this.onToggleClick}/>;
+                  })}
+              </ListGroup>
             </Col>
           </Row>
-        </Grid>
-    );
+        </Grid>;
+    }
+    else{
+      result = <p>No data</p>;
+    }
+    return result;
   }
 }
 
-
-export default Content;
+export default connect(
+  (state) => {
+    return state
+  },actions)(Content)

@@ -17,7 +17,7 @@ class CategoryItem extends React.Component {
             {this.props.data.name}
           </span>
           <span className="badge badge-secondary">
-            {this.props.data.categories.length > 0 && this.props.data.categories.length}
+            {this.props.data.categories.length > 1 && this.props.data.categories.length}
           </span>
         </ListGroupItem>
     );
