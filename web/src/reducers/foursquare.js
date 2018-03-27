@@ -1,4 +1,4 @@
-export let foursquare = (state={isFetching : false, items : []},action) => {
+export let foursquare = (state={isFetching : false, items : [], canView: false},action) => {
     switch(action.type){
         case 'Start_Search':
             return {

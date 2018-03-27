@@ -38,7 +38,6 @@ export let fetchData = (path, queryObj = {}) => {
     dispatch(startSearch())
     return axios.get(url).then(
       (response) => {
-        console.log(response.data.response);
         if(response.data.response.categories){
           dispatch(endSearch(response.data.response.categories));
         }
@@ -52,4 +51,26 @@ export let fetchData = (path, queryObj = {}) => {
     )
 
   }
+}
+
+export let loadMore = (data) => {
+  return (dispatch) => {
+    dispatch(startSearch())
+    if(data.categories && data.categories.length > 0){
+      dispatch(endSearch(data.categories));
+    }
+  }
+}
+
+export let disableViewButton = (payload) => {
+    return {
+        type : 'Disable_View_Button',
+        payload: payload
+    }
+}
+
+export let hideViewButton = (status) => {
+ return (dispatch) => {
+  return dispatch(disableViewButton(status));
+ }
 }
