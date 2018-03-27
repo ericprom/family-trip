@@ -46,4 +46,4 @@ function displayData(datas){
   });
 }
 
-getLocationKey('13.7978215,100.5239869');
+getLocationKey('12.7520739,99.7076712');
