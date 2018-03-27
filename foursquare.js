@@ -24,14 +24,6 @@ function getCategories(){
     });
 }
 
-function displayData(datas){
-  datas.forEach(function(data) {
-    console.log("/////////////////////////////////////////////");
-    console.log("id:",data.id);
-    console.log("name:",data.name);
-  });
-}
-
 function getVenues(latlng, categoryId){
   var data = { 
     'client_id': clientId, 
@@ -51,4 +43,40 @@ function getVenues(latlng, categoryId){
     });
 }
 
-getVenues('12.7520739,99.7076712', '4d4b7105d754a06377d81259');
+function getVenuePhotos(venueId){
+  var data = { 
+    'client_id': clientId, 
+    'client_secret': clientSecret, 
+    'locale': 'th', 
+    'v': moment().format('YYYYMMDD')
+  };
+  var querystring = encodeQueryData(data);
+  axios.get(baseUrl+'venues/'+venueId+'/photos?'+querystring)
+    .then(response => {
+      generatePhotoPath(response.data.response.photos.items);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+}
+
+function generatePhotoPath(photos){
+  var size = '300x500';
+  photos.forEach(function(photo) {
+    var image = photo.prefix+size+photo.suffix;
+    console.log("path:",image);
+  });
+}
+
+function displayData(datas){
+  datas.forEach(function(data) {
+    console.log("/////////////////////////////////////////////");
+    console.log("id:",data.id);
+    console.log("name:",data.name);
+  });
+}
+
+
+//getCategories();
+//getVenues('12.7520739,99.7076712', '4d4b7105d754a06377d81259');
+getVenuePhotos('4bc57a464a9aa593eb8b067b');

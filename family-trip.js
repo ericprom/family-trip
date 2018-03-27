@@ -39,10 +39,10 @@ function forecasts(locKey){
 function displayData(datas){
   datas.forEach(function(data) {
     console.log("/////////////////////////////////////////////");
-    console.log("วันที่:",moment(data.Date).format('DD/MM/YYYY'));
-    console.log("กลางวัน:",data.Day.IconPhrase);
-    console.log("กลางคืน:",data.Night.IconPhrase);
-    console.log("อุณหภูมิ:",data.Temperature.Minimum.Value+'-'+data.Temperature.Maximum.Value);
+    console.log("date:",moment(data.Date).format('DD/MM/YYYY'));
+    console.log("day:",data.Day.IconPhrase);
+    console.log("night:",data.Night.IconPhrase);
+    console.log("temp:",data.Temperature.Minimum.Value+'-'+data.Temperature.Maximum.Value);
   });
 }
 
