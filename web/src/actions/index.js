@@ -20,6 +20,20 @@ export let endSearch = (payload) => {
     }
 }
 
+export let endGroupSearch = (payload) => {
+    return {
+        type : 'End_Group_Search',
+        payload: payload
+    }
+}
+
+export let addMapMarkers = (payload) => {
+    return {
+        type : 'Add_Map_Markers',
+        payload: payload
+    }
+}
+
 export let encodeQueryData = (data) =>{
   let ret = [];
   for (let d in data)
@@ -38,6 +52,18 @@ export let fetchData = (path, queryObj = {}) => {
     dispatch(startSearch())
     return axios.get(url).then(
       (response) => {
+
+        if(response.data.response.groups){
+          let groups = response.data.response.groups;
+          groups.forEach(group =>{
+            if(group.items){
+              let items = group.items;
+              dispatch(endGroupSearch(items));
+              dispatch(addMapMarkers(items));
+            }
+          });
+        }
+
         if(response.data.response.categories){
           dispatch(endSearch(response.data.response.categories));
         }
