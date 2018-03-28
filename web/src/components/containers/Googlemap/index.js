@@ -3,6 +3,7 @@ import { Map, SearchBox } from '../../presentations'
 import {bindActionCreators} from "redux"
 import {connect} from 'react-redux'
 import * as foursquareActions from '../../../actions/foursquare'
+import * as weatherActions from '../../../actions/weather'
 
 class Googlemap extends Component {
 
@@ -28,9 +29,9 @@ class Googlemap extends Component {
       this.props.actions.fetchData('venues/explore?',{
         'll': ll
       })
-      // this.props.forecast.fetchData('locations/v1/cities/geoposition/search?',{
-      //   'q': ll
-      // })
+      this.props.forecast.fetchData('locations/v1/cities/geoposition/search?',{
+        'q': ll
+      })
     }
   }
 
@@ -108,7 +109,8 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-      actions: bindActionCreators(foursquareActions, dispatch)
+      actions: bindActionCreators(foursquareActions, dispatch),
+      forecast: bindActionCreators(weatherActions, dispatch),
   };
 }
 
