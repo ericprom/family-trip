@@ -156,12 +156,9 @@ class Content extends React.Component {
 
     return (
       <Grid>
-        <Row>
-          <Col xs={12}>
-            {forecast}
-          </Col>
-        </Row>
-        <br />
+        <div className='weather-container'>
+          {forecast}
+        </div>
         <Row>
           <Col xs={4}>
             <div style={{height: 450 + 'px', overflowY: 'scroll'}}>{list}</div>
