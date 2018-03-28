@@ -1,6 +1,6 @@
 import * as types from '../actions/mutation-types'
 
-export let weather = (state={},action) => {
+export let weather = (state={items:[]},action) => {
     switch(action.type){
         case types.START_WEATHER_SEARCH:
             return {

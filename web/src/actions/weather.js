@@ -40,7 +40,7 @@ export let fetchData = (path, queryObj = {}) => {
     return axios.get(url)
       .then(
         (response) => {
-          if(response.data.Key){
+          if(response.data && response.data.Key){
             return axios.get(weather.baseUrl+'forecasts/v1/daily/5day/'+response.data.Key+'?'+encodeQueryData(query));
           }
         },
@@ -49,7 +49,7 @@ export let fetchData = (path, queryObj = {}) => {
         }
       )
       .then((response) => {
-        if(response.data.DailyForecasts){
+        if(response.data && response.data.DailyForecasts){
           dispatch(endSearch(response.data.DailyForecasts));
         }
       });

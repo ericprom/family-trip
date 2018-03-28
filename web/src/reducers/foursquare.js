@@ -1,6 +1,6 @@
 import * as types from '../actions/mutation-types'
 
-export let foursquare = (state={},action) => {
+export let foursquare = (state={items:[]},action) => {
     switch(action.type){
         case types.START_VENUE_SEARCH:
             return {
