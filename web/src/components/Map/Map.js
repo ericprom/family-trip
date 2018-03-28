@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps";
 import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 let actions = require('../../actions/index');
 
 class Map extends Component {
 
-  onCenterChanged = () => {
-    const center = this.refs.map.getCenter();
-    this.props.setCenterMap({
-      lat: center.lat(), lng: center.lng()
-    });
-  }
+
+ static propTypes = {
+    onMarkerClick: PropTypes.func,
+    onCenterChanged: PropTypes.func,
+  };
 
   render() {
 
@@ -19,12 +19,16 @@ class Map extends Component {
         ref='map'
         defaultZoom={this.props.zoom}
         center={this.props.center}
-        onCenterChanged={this.onCenterChanged.bind(this)}>
+        onCenterChanged={() => this.props.onCenterChanged(this.refs.map)}>
+        <Marker
+          position={this.props.center}
+        />
         {
           this.props.markers.map(marker => {
             return <Marker
               key={marker.id}
               position={marker.location}
+              onClick={() => this.props.onMarkerClick(marker)}
             />
           })
         }

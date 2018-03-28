@@ -58,6 +58,21 @@ class Content extends React.Component {
     this.props.hideViewButton(true);
   };
 
+  onCenterChanged = (data) => {
+    const center = data.getCenter();
+    this.props.setCenterMap({
+      lat: center.lat(), lng: center.lng()
+    });
+
+    this.loadRecommendedVenues();
+  }
+
+
+  onMarkerClick = (data) => {
+    console.log(data);
+  }
+
+
   render() {
 
     let {foursquare, test, google} = this.props;
@@ -103,12 +118,25 @@ class Content extends React.Component {
     const markers = [];
     if(google.markers && google.markers.length >= 1){
       google.markers.forEach(data => {
-        markers.push({
-          id: data.venue.id,
-          location:{
+        let id = 0;
+        let location = {};
+        if(data.venue){
+          id = data.venue.id;
+          location = {
             lat: data.venue.location.lat, 
             lng: data.venue.location.lng 
           }
+        }
+        else{
+          id = data.id;
+          location = {
+            lat: data.location.lat, 
+            lng: data.location.lng 
+          }
+        }
+        markers.push({
+          id: id,
+          location: location
         });
       })
     }
@@ -130,11 +158,13 @@ class Content extends React.Component {
             <Map 
               markers={markers}
               center={google.center}
-              zoom={15}
+              zoom={10}
               googleMapURL='https://maps.googleapis.com/maps/api/js?key=AIzaSyAV6exvDcBNUhdAonHKE5Ty5Ny83f1UZ3o&libraries=geometry,drawing,places'
               loadingElement={<div style={{ height: `100%` }} />}
               containerElement={<div style={{ height: `400px` }} />}
               mapElement={<div style={{ height: `100%` }} />}
+              onMarkerClick={this.onMarkerClick}
+              onCenterChanged={this.onCenterChanged}
             />
           </Col>
         </Row>

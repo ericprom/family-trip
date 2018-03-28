@@ -69,6 +69,7 @@ export let fetchData = (path, queryObj = {}) => {
         }
         if(response.data.response.venues){
           dispatch(endSearch(response.data.response.venues));
+          dispatch(addMapMarkers(response.data.response.venues));
         }
       },
       (err) => {
