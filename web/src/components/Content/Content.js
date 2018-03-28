@@ -3,44 +3,45 @@ import Map from '../Map/Map';
 import SearchBox from '../Map/SearchBox';
 import ListItem from '../ListItem';
 import {Col, Grid, ListGroup, Row} from 'react-bootstrap';
+import {bindActionCreators} from "redux";
 import {connect} from 'react-redux';
-let actions = require('../../actions/foursquare');
+import * as foursquareActions from '../../actions/foursquare';
 
 class Content extends React.Component {
 
   componentDidMount() {
 
     this.loadRecommendedVenues();
-    //this.props.fetchFourSquareData('venues/categories?');
+    //this.props.actions.fetchData('venues/categories?');
   }
 
   onViewClick = (data) => {
   //   let { google } = this.props;
 
   //   let ll = [google.center.lat,google.center.lng].join(',')
-  //   this.props.fetchFourSquareData('venues/search?',{
+  //   this.props.actions.fetchData('venues/search?',{
   //     'll': ll,
   //     'categoryId': data.id
   //   });
 
-  //   this.props.hideViewButton(true);
+  //   this.props.actions.hideViewButton(true);
 
-    this.props.toggleVenue(data);
-    this.props.setMapCenter({
+    this.props.actions.toggleVenue(data);
+    this.props.actions.setMapCenter({
       lat: data.location.lat, lng: data.location.lng
     });
   };
 
   onToggleClick = (data) => {
     if(data.categories && data.categories.length > 0){
-      this.props.loadMore(data);
+      this.props.actions.loadMore(data);
     }
   };
 
   onPlacesChanged = (data) => {
     const places = data.getPlaces();
     places.map(({ place_id, formatted_address, geometry: { location } }) =>
-      this.props.setMapCenter({
+      this.props.actions.setMapCenter({
         lat: location.lat(), lng: location.lng()
       })
     );
@@ -52,7 +53,7 @@ class Content extends React.Component {
     let { google } = this.props;
     if(google.center){
       let ll = [google.center.lat,google.center.lng].join(',')
-      this.props.fetchFourSquareData('venues/explore?',{
+      this.props.actions.fetchData('venues/explore?',{
         'll': ll
       });
     }
@@ -60,7 +61,7 @@ class Content extends React.Component {
 
   onCenterChanged = (data) => {
     const center = data.getCenter();
-    this.props.setMapCenter({
+    this.props.actions.setMapCenter({
       lat: center.lat(), lng: center.lng()
     });
 
@@ -68,7 +69,7 @@ class Content extends React.Component {
   }
 
   onMarkerClick = (data) => {
-    this.props.toggleMarker(data);
+    this.props.actions.toggleMarker(data);
   }
 
   render() {
@@ -158,7 +159,20 @@ class Content extends React.Component {
   }
 }
 
-export default connect(
-  (state) => {
-    return state
-  },actions)(Content)
+const mapStateToProps = (state, ownProps) => ({  
+  foursquare: state.foursquare,
+  google: state.google
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+      actions: bindActionCreators(foursquareActions, dispatch)
+  };
+}
+
+const ContentContainer = connect(  
+  mapStateToProps,
+  mapDispatchToProps
+)(Content);
+
+export default ContentContainer

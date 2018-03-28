@@ -36,13 +36,13 @@ export let encodeQueryData = (data) =>{
   return ret.join('&');
 }
 
-export let fetchFourSquareData = (path, queryObj = {}) => {
+export let fetchData = (path, queryObj = {}) => {
   var query = Object.assign({ 
     'client_id': fourSquare.clientId, 
     'client_secret': fourSquare.clientSecret, 
     'locale': 'th', 
     'v': moment().format('YYYYMMDD') }, queryObj)
-  let url = fourSquare.baseUrl + path + this.encodeQueryData(query)
+  let url = fourSquare.baseUrl + path + encodeQueryData(query)
   return (dispatch) => {
     dispatch(startSearch())
     return axios.get(url).then(
