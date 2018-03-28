@@ -96,9 +96,9 @@ export let disableViewButton = (payload) => {
     }
 }
 
-export let hideViewButton = (status) => {
+export let hideViewButton = (payload) => {
  return (dispatch) => {
-  return dispatch(disableViewButton(status));
+  return dispatch(disableViewButton(payload));
  }
 }
 
@@ -109,8 +109,21 @@ export let getCenterMap = (payload) => {
     }
 }
 
-export let setCenterMap = (center) => {
+export let setCenterMap = (payload) => {
  return (dispatch) => {
-  return dispatch(getCenterMap(center));
+  return dispatch(getCenterMap(payload));
+ }
+
+}
+export let selectedVenue = (payload) => {
+    return {
+        type : 'Selected_Venue',
+        payload: payload
+    }
+}
+
+export let toggleVenue = (payload) => {
+ return (dispatch) => {
+  return dispatch(selectedVenue(payload));
  }
 }

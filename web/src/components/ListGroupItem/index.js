@@ -18,7 +18,8 @@ class ListItem extends React.Component {
     }
           
     return (
-        <ListGroupItem>
+        <ListGroupItem
+          bsStyle={this.props.data.highlighted ? 'info' : ''}>
           {icon}
           <span style={{marginLeft: 10+'px'}}
             onClick={() => this.props.onToggleClick(this.props.data)}>

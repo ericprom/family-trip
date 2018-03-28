@@ -1,4 +1,4 @@
-export let google = (state={},action) => {
+export let google = (state={ center: {lat: 13.7978114, lng: 100.4627011}},action) => {
     switch(action.type){
         case 'Get_Center_Map':
             return{

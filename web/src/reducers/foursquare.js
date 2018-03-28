@@ -14,6 +14,20 @@ export let foursquare = (state={},action) => {
                 isFetching : false,
                 groups : action.payload
             }
+        case 'Selected_Venue':
+            let groups = state.groups.map(group => {
+                if(group.venue.id === action.payload.id){
+                    return {...group, highlighted: true}
+                }
+                else{
+                   return {...group, highlighted: false}
+               }
+            })
+
+            return {
+                isFetching : false,
+                groups : groups
+            }
         default:   
             return state;
     }

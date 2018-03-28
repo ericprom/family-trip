@@ -11,11 +11,8 @@ class Content extends React.Component {
 
   componentDidMount() {
 
-    this.props.setCenterMap({
-      lat: 13.7978114, lng: 100.4627011
-    });
-
-    this.props.fetchData('venues/categories?');
+    this.loadRecommendedVenues();
+    //this.props.fetchData('venues/categories?');
   }
 
   onViewClick = (data) => {
@@ -49,13 +46,14 @@ class Content extends React.Component {
 
   loadRecommendedVenues = () => {
     let { google } = this.props;
+    if(google.center){
+      let ll = [google.center.lat,google.center.lng].join(',')
+      this.props.fetchData('venues/explore?',{
+        'll': ll
+      });
 
-    let ll = [google.center.lat,google.center.lng].join(',')
-    this.props.fetchData('venues/explore?',{
-      'll': ll
-    });
-
-    this.props.hideViewButton(true);
+      this.props.hideViewButton(true);
+    }
   };
 
   onCenterChanged = (data) => {
@@ -64,14 +62,13 @@ class Content extends React.Component {
       lat: center.lat(), lng: center.lng()
     });
 
-    this.loadRecommendedVenues();
+   // this.loadRecommendedVenues();
   }
 
 
   onMarkerClick = (data) => {
-    console.log(data);
+    this.props.toggleVenue(data);
   }
-
 
   render() {
 
