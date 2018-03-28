@@ -25,7 +25,9 @@ export default (props) => {
       <div style={{textAlign: 'left'}}>
         <Moment format="DD/MM/YYYY">{item.Date}</Moment>
       </div>
-      <i className={icon}></i>
+      <div style={{textAlign: 'center'}}>
+        <i className={icon}></i>
+      </div>
       <div style={{textAlign: 'left'}}>
         {item.Temperature.Minimum.Value+'/'+item.Temperature.Maximum.Value}
       </div>

@@ -5,7 +5,8 @@ import * as types from './mutation-types'
 const weather = {
   baseUrl: 'http://dataservice.accuweather.com/',
   //apiKey: 'S1BrKQvtCrlQ2EIxflcmKZlkemjUAcsS'
-  apiKey: 'T9iRl38QfsjsWlcZAh2ryYGkz7Mai4Rz'
+  //apiKey: 'T9iRl38QfsjsWlcZAh2ryYGkz7Mai4Rz'
+  apiKey: 'VQPKJeAtEIGvnSNyuGsLGAGGqWjqtRx1'
 }
 
 export let startSearch = () => {
@@ -40,16 +41,16 @@ export let fetchData = (path, queryObj = {}) => {
     return axios.get(url)
       .then(
         (response) => {
-          if(response.data && response.data.Key){
+          if(response && response.data && response.data.Key){
             return axios.get(weather.baseUrl+'forecasts/v1/daily/5day/'+response.data.Key+'?'+encodeQueryData(query));
           }
         },
         (err) => {
-          console.log(err);
+          dispatch(endSearch([]));
         }
       )
       .then((response) => {
-        if(response.data && response.data.DailyForecasts){
+        if(response && response.data && response.data.DailyForecasts){
           dispatch(endSearch(response.data.DailyForecasts));
         }
       });
