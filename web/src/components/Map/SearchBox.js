@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { withScriptjs } from "react-google-maps";
-import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 const { StandaloneSearchBox } = require("react-google-maps/lib/components/places/StandaloneSearchBox");
-let actions = require('../../actions/index');
 
 class SearchBox extends Component {
 
@@ -27,7 +25,4 @@ class SearchBox extends Component {
   }
 }
 
-export default connect(
-  (state) => {
-    return state
-  },actions)(withScriptjs(SearchBox))
+export default withScriptjs(SearchBox)

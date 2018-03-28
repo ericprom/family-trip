@@ -1,6 +1,8 @@
 import axios from 'axios';
 import moment from 'moment';
 
+import * as types from './mutation-types'
+
 const fourSquare = {
   baseUrl: 'https://api.foursquare.com/v2/',
   clientId: 'J4EKPOE2HI1N5NDO5ZPDV4HXH1FFKZDWEOOLNA1MTJDUD2FE',
@@ -9,27 +11,20 @@ const fourSquare = {
 
 export let startSearch = () => {
     return {
-        type : 'Start_Search'
+        type : types.START_SEARCH
     }
 }
 
 export let endSearch = (payload) => {
     return {
-        type : 'End_Search',
-        payload: payload
-    }
-}
-
-export let endGroupSearch = (payload) => {
-    return {
-        type : 'End_Group_Search',
+        type : types.END_SEARCH,
         payload: payload
     }
 }
 
 export let addMapMarkers = (payload) => {
     return {
-        type : 'Add_Map_Markers',
+        type : types.ADD_MAP_MARKER,
         payload: payload
     }
 }
@@ -41,7 +36,7 @@ export let encodeQueryData = (data) =>{
   return ret.join('&');
 }
 
-export let fetchData = (path, queryObj = {}) => {
+export let fetchFourSquareData = (path, queryObj = {}) => {
   var query = Object.assign({ 
     'client_id': fourSquare.clientId, 
     'client_secret': fourSquare.clientSecret, 
@@ -54,14 +49,20 @@ export let fetchData = (path, queryObj = {}) => {
       (response) => {
 
         if(response.data.response.groups){
+          let venues = [];
           let groups = response.data.response.groups;
           groups.forEach(group =>{
             if(group.items){
               let items = group.items;
-              dispatch(endGroupSearch(items));
-              dispatch(addMapMarkers(items));
+              items.forEach(item =>{
+                if(item.venue){
+                  venues.push(item.venue);
+                }
+              });
             }
           });
+          dispatch(endSearch(venues));
+          dispatch(addMapMarkers(venues));
         }
 
         if(response.data.response.categories){
@@ -89,55 +90,38 @@ export let loadMore = (data) => {
   }
 }
 
-export let disableViewButton = (payload) => {
-    return {
-        type : 'Disable_View_Button',
-        payload: payload
-    }
-}
-
-export let hideViewButton = (payload) => {
+export let setMapCenter = (payload) => {
  return (dispatch) => {
-  return dispatch(disableViewButton(payload));
+  return dispatch({
+    type : types.SET_MAP_CENTER,
+    payload: payload
+  });
  }
-}
-
-export let getCenterMap = (payload) => {
-    return {
-        type : 'Get_Center_Map',
-        payload: payload
-    }
-}
-
-export let setCenterMap = (payload) => {
- return (dispatch) => {
-  return dispatch(getCenterMap(payload));
- }
-
-}
-
-export let selectedVenue = (payload) => {
-    return {
-        type : 'Selected_Venue',
-        payload: payload
-    }
 }
 
 export let toggleVenue = (payload) => {
  return (dispatch) => {
-  return dispatch(selectedVenue(payload));
+  return dispatch({
+    type : types.SELECTED_MARKER,
+    payload: payload
+  });
  }
 }
 
-export let selectedMarker = (payload) => {
-    return {
-        type : 'Selected_Marker',
-        payload: payload
-    }
+export let hideViewButton = (payload) => {
+ return (dispatch) => {
+  return dispatch({
+    type : types.DISABLE_MARKER_CLICK,
+    payload: payload
+  });
+ }
 }
 
 export let toggleMarker = (payload) => {
  return (dispatch) => {
-  return dispatch(selectedMarker(payload));
+  return dispatch({
+    type : types.SELECTED_VENUE,
+    payload: payload
+  });
  }
 }

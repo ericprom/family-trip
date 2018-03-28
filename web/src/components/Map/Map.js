@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps";
-import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-let actions = require('../../actions/index');
 
 class Map extends Component {
 
@@ -45,7 +43,4 @@ class Map extends Component {
   }
 }
 
-export default connect(
-  (state) => {
-    return state
-  },actions)(withScriptjs(withGoogleMap(Map)))
+export default withScriptjs(withGoogleMap(Map))

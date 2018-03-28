@@ -12,30 +12,20 @@ class ListItem extends React.Component {
   };
 
   render() {
-    let icon = '';
-    if(this.props.data.icon){
-      icon = <img src={this.props.data.icon.prefix+'bg_32'+this.props.data.icon.suffix} alt=""/>;
+    let bntClass = 'pull-right btn-xs btn-default';
+    if(this.props.data.highlighted){
+      bntClass = 'pull-right btn-xs btn-danger';
     }
-
-    let name = <span style={{marginLeft: 10+'px'}}
-        onClick={() => this.props.onToggleClick(this.props.data)}>
-        {this.props.data.name}
-      </span>;
-
-    let viewButton = '';
-
-    if(this.props.disableViewButton === false){
-      viewButton = <Button className="pull-right btn-xs btn-default"
-          onClick={() => this.props.onViewClick(this.props.data)}>
-          View
-        </Button>;
-    }
-          
     return (
         <ListGroupItem>
-          {icon}
-          {name}
-          {viewButton}
+          <span style={{marginLeft: 10+'px'}}
+            onClick={() => this.props.onToggleClick(this.props.data)}>
+            {this.props.data.name}
+          </span>
+          <Button className={bntClass}
+            onClick={() => this.props.onViewClick(this.props.data)}>
+            <i className="fa fa-map-marker-alt"></i>
+          </Button>
         </ListGroupItem>
     );
   }
