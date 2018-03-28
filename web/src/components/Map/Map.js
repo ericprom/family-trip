@@ -25,7 +25,13 @@ class Map extends Component {
         />
         {
           this.props.markers.map(marker => {
+
+            let option = {icon: '', size:32+'px'};
+            if(marker.highlighted){
+              option = {icon: 'http://www.themarslab.org/app/uploads/2014/04/pin-smile.png', size:32+'px'};
+            }
             return <Marker
+              options={option}
               key={marker.id}
               position={marker.location}
               onClick={() => this.props.onMarkerClick(marker)}

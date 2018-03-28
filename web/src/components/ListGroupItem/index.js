@@ -18,13 +18,16 @@ class ListItem extends React.Component {
     }
           
     return (
-        <ListGroupItem
-          bsStyle={this.props.data.highlighted ? 'info' : ''}>
+        <ListGroupItem>
           {icon}
           <span style={{marginLeft: 10+'px'}}
             onClick={() => this.props.onToggleClick(this.props.data)}>
             {this.props.data.venue.name}
           </span>
+          <Button className="pull-right btn-xs btn-default"
+            onClick={() => this.props.onViewClick(this.props.data)}>
+            View
+          </Button>
         </ListGroupItem>
     );
   }

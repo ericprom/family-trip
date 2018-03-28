@@ -16,15 +16,17 @@ class Content extends React.Component {
   }
 
   onViewClick = (data) => {
-    let { google } = this.props;
+  //   let { google } = this.props;
 
-    let ll = [google.center.lat,google.center.lng].join(',')
-    this.props.fetchData('venues/search?',{
-      'll': ll,
-      'categoryId': data.id
-    });
+  //   let ll = [google.center.lat,google.center.lng].join(',')
+  //   this.props.fetchData('venues/search?',{
+  //     'll': ll,
+  //     'categoryId': data.id
+  //   });
 
-    this.props.hideViewButton(true);
+  //   this.props.hideViewButton(true);
+
+    this.props.toggleMarker(data);
   };
 
   onToggleClick = (data) => {
@@ -51,8 +53,6 @@ class Content extends React.Component {
       this.props.fetchData('venues/explore?',{
         'll': ll
       });
-
-      this.props.hideViewButton(true);
     }
   };
 
@@ -62,12 +62,12 @@ class Content extends React.Component {
       lat: center.lat(), lng: center.lng()
     });
 
-   // this.loadRecommendedVenues();
+   this.loadRecommendedVenues();
   }
 
 
   onMarkerClick = (data) => {
-    this.props.toggleVenue(data);
+    //this.props.toggleVenue(data);
   }
 
   render() {
@@ -115,26 +115,26 @@ class Content extends React.Component {
     const markers = [];
     if(google.markers && google.markers.length >= 1){
       google.markers.forEach(data => {
-        let id = 0;
-        let location = {};
         if(data.venue){
-          id = data.venue.id;
-          location = {
-            lat: data.venue.location.lat, 
-            lng: data.venue.location.lng 
-          }
+          markers.push({
+            highlighted: data.highlighted,
+            id: data.venue.id,
+            location: {
+              lat: data.venue.location.lat, 
+              lng: data.venue.location.lng 
+            }
+          });
         }
         else{
-          id = data.id;
-          location = {
-            lat: data.location.lat, 
-            lng: data.location.lng 
-          }
+          markers.push({
+            highlighted: data.highlighted,
+            id: data.id,
+            location: {
+              lat: data.location.lat, 
+              lng: data.location.lng 
+            }
+          });
         }
-        markers.push({
-          id: id,
-          location: location
-        });
       })
     }
 

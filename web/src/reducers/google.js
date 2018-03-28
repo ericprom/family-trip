@@ -10,6 +10,20 @@ export let google = (state={ center: {lat: 13.7978114, lng: 100.4627011}},action
                 ...state,
                 markers : action.payload
             }
+
+        case 'Selected_Marker':
+            let markers = state.markers.map(marker => {
+                if(marker.venue.id === action.payload.venue.id){
+                    return {...marker, highlighted: true}
+                }
+                else{
+                   return {...marker, highlighted: false}
+               }
+            })
+            return {
+                ...state,
+                markers : markers
+            }
         default:   
             return state;
     }

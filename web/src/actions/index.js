@@ -115,6 +115,7 @@ export let setCenterMap = (payload) => {
  }
 
 }
+
 export let selectedVenue = (payload) => {
     return {
         type : 'Selected_Venue',
@@ -125,5 +126,18 @@ export let selectedVenue = (payload) => {
 export let toggleVenue = (payload) => {
  return (dispatch) => {
   return dispatch(selectedVenue(payload));
+ }
+}
+
+export let selectedMarker = (payload) => {
+    return {
+        type : 'Selected_Marker',
+        payload: payload
+    }
+}
+
+export let toggleMarker = (payload) => {
+ return (dispatch) => {
+  return dispatch(selectedMarker(payload));
  }
 }
