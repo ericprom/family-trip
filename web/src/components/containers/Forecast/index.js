@@ -21,14 +21,14 @@ class Forecast extends Component {
   render() {
 
     const { weather } = this.props
-
+    
     return (
       <div className='weather-container'>
         {
-            weather.items.map((item, id) => {
-              return <ForecastItem 
-                key={id} id={id} item={item}/>
-            })
+          weather.items.map((item, id) => {
+            return <ForecastItem 
+              key={id} id={id} item={item}/>
+          })
         }
       </div>
     )

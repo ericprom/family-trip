@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from 'axios'
 
 import * as types from './mutation-types'
 
@@ -25,8 +25,8 @@ export let endSearch = (payload) => {
 export let encodeQueryData = (data) =>{
   let ret = [];
   for (let d in data)
-    ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
-  return ret.join('&');
+    ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]))
+  return ret.join('&')
 }
 
 export let fetchData = (path, queryObj = {}) => {
@@ -42,16 +42,16 @@ export let fetchData = (path, queryObj = {}) => {
       .then(
         (response) => {
           if(response && response.data && response.data.Key){
-            return axios.get(weather.baseUrl+'forecasts/v1/daily/5day/'+response.data.Key+'?'+encodeQueryData(query));
+            return axios.get(weather.baseUrl+'forecasts/v1/daily/5day/'+response.data.Key+'?'+encodeQueryData(query))
           }
         },
         (err) => {
-          dispatch(endSearch([]));
+          dispatch(endSearch([]))
         }
       )
       .then((response) => {
-        if(response && response.data && response.data.DailyForecasts){
-          dispatch(endSearch(response.data.DailyForecasts));
+        if(response && response.data && response.data){
+          dispatch(endSearch(response.data.DailyForecasts))
         }
       });
   }

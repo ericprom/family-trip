@@ -5,11 +5,6 @@
   margin: 20px;
 }
 
-.weather-column{ 
-  width:20%; 
-  float:left;
-}
-
 .wi {
     line-height: 1.4;
     *padding: 15px;

@@ -34,6 +34,6 @@ export let foursquare = (state={items:[]},action) => {
                 disableViewButton : action.payload
             }
         default:   
-            return state;
+            return state
     }
 }

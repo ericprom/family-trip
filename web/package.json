@@ -6,6 +6,7 @@
     "@react-bootstrap/pagination": "^1.0.0",
     "axios": "^0.18.0",
     "faker": "^4.1.0",
+    "flexy-flipcards": "^0.1.2",
     "lodash": "^4.17.5",
     "moment": "^2.21.0",
     "momentjs": "^2.0.0",
