@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 import {Col} from 'react-bootstrap';
 import Moment from 'react-moment';
 
-class Forecast extends React.Component {
+class Forecast extends Component {
   
   static propTypes = {
     data: PropTypes.object

@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {Button, ListGroupItem} from 'react-bootstrap';
 
-class ListItem extends React.Component {
+class ListItem extends Component {
   
   static propTypes = {
     canView: PropTypes.bool,
@@ -30,6 +30,5 @@ class ListItem extends React.Component {
     );
   }
 }
-
 
 export default ListItem;

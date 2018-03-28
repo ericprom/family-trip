@@ -1,15 +1,15 @@
-import React from 'react';
-import Map from '../Map/Map';
-import SearchBox from '../Map/SearchBox';
-import ListItem from '../ListItem';
-import ForecastItem from '../ForecastItem';
+import React, { Component } from 'react';
+import Map from '../../components/Map/Map';
+import SearchBox from '../../components/Map/SearchBox';
+import ListItem from '../../components/ListItem';
+import ForecastItem from '../../components/ForecastItem';
 import {Col, Grid, ListGroup, Row} from 'react-bootstrap';
 import {bindActionCreators} from "redux";
 import {connect} from 'react-redux';
 import * as foursquareActions from '../../actions/foursquare';
 import * as weatherActions from '../../actions/weather';
 
-class Content extends React.Component {
+class Content extends Component {
 
   componentDidMount() {
 
