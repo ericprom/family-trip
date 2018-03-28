@@ -2,10 +2,12 @@ import React from 'react';
 import Map from '../Map/Map';
 import SearchBox from '../Map/SearchBox';
 import ListItem from '../ListItem';
+import ForecastItem from '../ForecastItem';
 import {Col, Grid, ListGroup, Row} from 'react-bootstrap';
 import {bindActionCreators} from "redux";
 import {connect} from 'react-redux';
 import * as foursquareActions from '../../actions/foursquare';
+import * as weatherActions from '../../actions/weather';
 
 class Content extends React.Component {
 
@@ -56,6 +58,10 @@ class Content extends React.Component {
       this.props.actions.fetchData('venues/explore?',{
         'll': ll
       });
+
+      this.props.forecast.fetchData('locations/v1/cities/geoposition/search?',{
+        'q': ll
+      });
     }
   };
 
@@ -74,7 +80,28 @@ class Content extends React.Component {
 
   render() {
 
-    let {foursquare, google} = this.props;
+    let { foursquare, google, weather } = this.props;
+
+    let forecast = <p>Loading</p>;
+    if(weather.isFetching === true){
+
+      forecast = <p>Loading</p>;
+
+    }
+    else if(weather.isFetching === false && weather.items && weather.items.length >= 1){
+      console.log(weather);
+      forecast = <Row>
+              {
+                weather.items.map((item, id) => {
+                  return <ForecastItem 
+                    key={id} id={id} data={item}/>;
+                })}
+            </Row>;
+    }
+    else{
+      forecast = <p>No data</p>;
+    }
+
     let list = <p>Loading</p>;
 
     if(foursquare.isFetching === true){
@@ -130,6 +157,12 @@ class Content extends React.Component {
     return (
       <Grid>
         <Row>
+          <Col xs={12}>
+            {forecast}
+          </Col>
+        </Row>
+        <br />
+        <Row>
           <Col xs={4}>
             <div style={{height: 450 + 'px', overflowY: 'scroll'}}>{list}</div>
           </Col>
@@ -161,12 +194,14 @@ class Content extends React.Component {
 
 const mapStateToProps = (state, ownProps) => ({  
   foursquare: state.foursquare,
-  google: state.google
+  google: state.google,
+  weather: state.weather
 });
 
 const mapDispatchToProps = (dispatch) => {
   return {
-      actions: bindActionCreators(foursquareActions, dispatch)
+      actions: bindActionCreators(foursquareActions, dispatch),
+      forecast: bindActionCreators(weatherActions, dispatch),
   };
 }
 

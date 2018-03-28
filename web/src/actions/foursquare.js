@@ -11,13 +11,13 @@ const fourSquare = {
 
 export let startSearch = () => {
     return {
-        type : types.START_SEARCH
+        type : types.START_VENUE_SEARCH
     }
 }
 
 export let endSearch = (payload) => {
     return {
-        type : types.END_SEARCH,
+        type : types.END_VENUE_SEARCH,
         payload: payload
     }
 }

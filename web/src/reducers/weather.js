@@ -1,19 +1,19 @@
 import * as types from '../actions/mutation-types'
 
-export let foursquare = (state={},action) => {
+export let weather = (state={},action) => {
     switch(action.type){
-        case types.START_VENUE_SEARCH:
+        case types.START_WEATHER_SEARCH:
             return {
                 ...state,
                 isFetching : true
             }
-        case types.END_VENUE_SEARCH:
+        case types.END_WEATHER_SEARCH:
             return{
                 ...state,
                 isFetching : false,
                 items : action.payload
             }
-        case types.SELECTED_VENUE:
+        case types.SELECTED_WEATHER:
             let items = state.items.map(item => {
                 if(item.id === action.payload.id){
                     return {...item, highlighted: true}
@@ -27,11 +27,6 @@ export let foursquare = (state={},action) => {
                 ...state,
                 isFetching : false,
                 items : items
-            }
-        case types.DISABLE_MARKER_CLICK:
-            return{
-                ...state,
-                disableViewButton : action.payload
             }
         default:   
             return state;
