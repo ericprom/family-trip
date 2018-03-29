@@ -12,7 +12,6 @@ export default (props) => {
   let categories = []
   if(item.categories && item.categories.length >= 1){
     item.categories.forEach((category)=>{
-      console.log(category)
       categories.push(category)
     })
   }

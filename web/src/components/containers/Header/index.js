@@ -9,7 +9,9 @@ import * as weatherActions from '../../../actions/weather'
 class Header extends Component {
 
 	componentDidMount() {
-    	this.loadRecommendedVenues();
+    	//this.loadRecommendedVenues();
+    	this.loadCategories();
+    	this.loadVenues();
   	}
 
 	onPlacesChanged = (data) => {
@@ -20,7 +22,13 @@ class Header extends Component {
 	      	})
 	    )
 
-	    this.loadRecommendedVenues()
+	    //this.loadRecommendedVenues()
+    	this.loadVenues();
+  	}
+
+  	loadCategories = () => {
+	    this.props.actions.fetchData('venues/categories?')
+
   	}
 
   	loadRecommendedVenues = () => {
@@ -30,9 +38,26 @@ class Header extends Component {
 	      	this.props.actions.fetchData('venues/explore?',{
 	        	'll': ll
 	      	})
-	      	this.props.forecast.fetchData('locations/v1/cities/geoposition/search?',{
-	      	  'q': ll
+	      	// this.props.forecast.fetchData('locations/v1/cities/geoposition/search?',{
+	      	//   'q': ll
+	      	// })
+	    }
+  	}
+
+  	loadVenues = () => {
+	    let { google } = this.props
+	    if(google.center){
+	      	let ll = [google.center.lat,google.center.lng].join(',')
+	      	this.props.actions.fetchData('venues/search?',{
+	        	'll': ll,
+	        	'intent':'browse',
+	        	'radius': 20000,
+	        	'limit': 50
 	      	})
+
+	      	// this.props.forecast.fetchData('locations/v1/cities/geoposition/search?',{
+	      	//   'q': ll
+	      	// })
 	    }
   	}
 
@@ -62,7 +87,7 @@ class Header extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({  
-  google: state.google
+  google: state.google,
 });
 
 const mapDispatchToProps = (dispatch) => {

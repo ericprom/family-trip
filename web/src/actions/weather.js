@@ -4,9 +4,9 @@ import * as types from './mutation-types'
 
 const weather = {
   baseUrl: 'http://dataservice.accuweather.com/',
-  //apiKey: 'S1BrKQvtCrlQ2EIxflcmKZlkemjUAcsS'
+  apiKey: 'S1BrKQvtCrlQ2EIxflcmKZlkemjUAcsS'
   //apiKey: 'T9iRl38QfsjsWlcZAh2ryYGkz7Mai4Rz'
-  apiKey: 'VQPKJeAtEIGvnSNyuGsLGAGGqWjqtRx1'
+  //apiKey: 'VQPKJeAtEIGvnSNyuGsLGAGGqWjqtRx1'
 }
 
 export let startSearch = () => {

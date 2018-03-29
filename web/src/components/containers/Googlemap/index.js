@@ -51,7 +51,7 @@ class Googlemap extends Component {
       <Map 
         markers={markers}
         center={google.center}
-        zoom={13}
+        zoom={15}
         googleMapURL={googleMapAPI}
         loadingElement={<div style={{ height: `100%` }} />}
         containerElement={<div style={{height: (window.innerHeight-50) + 'px'}} />}

@@ -1,13 +1,13 @@
 import App from './App/App'
 import ForecastItem from './ForecastItem'
-import ListItem from './ListItem'
+import GridItem from './GridItem'
 import Map from './MapItem'
 import SearchBox from './SearchBox'
 
 export {
 	App,
 	ForecastItem,
-	ListItem,
+	GridItem,
 	Map,
 	SearchBox
 }

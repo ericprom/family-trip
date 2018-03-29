@@ -9,13 +9,20 @@ const fourSquare = {
   clientSecret: 'PJOQIQLFJTPVP3IHN4HGRPK2RSFAHOHBRJTJ4PJEOYX4T5PV'
 }
 
+
 export let startSearch = () => {
     return {
-        type : types.START_VENUE_SEARCH
+        type : types.START_SEARCH
     }
 }
 
-export let endSearch = (payload) => {
+export let endCategorySearch = (payload) => {
+    return {
+        type : types.END_CATEGORY_SEARCH,
+        payload: payload
+    }
+}
+export let endVenueSearch = (payload) => {
     return {
         type : types.END_VENUE_SEARCH,
         payload: payload
@@ -47,7 +54,6 @@ export let fetchData = (path, queryObj = {}) => {
     dispatch(startSearch())
     return axios.get(url).then(
       (response) => {
-
         if(response.data.response.groups){
           let venues = [];
           let groups = response.data.response.groups;
@@ -61,15 +67,15 @@ export let fetchData = (path, queryObj = {}) => {
               });
             }
           });
-          dispatch(endSearch(venues));
+          dispatch(endVenueSearch(venues));
           dispatch(addMapMarkers(venues));
         }
 
         if(response.data.response.categories){
-          dispatch(endSearch(response.data.response.categories));
+          dispatch(endCategorySearch(response.data.response.categories));
         }
         if(response.data.response.venues){
-          dispatch(endSearch(response.data.response.venues));
+          dispatch(endVenueSearch(response.data.response.venues));
           dispatch(addMapMarkers(response.data.response.venues));
         }
       },
@@ -78,15 +84,6 @@ export let fetchData = (path, queryObj = {}) => {
       }
     )
 
-  }
-}
-
-export let loadMore = (data) => {
-  return (dispatch) => {
-    dispatch(startSearch())
-    if(data.categories && data.categories.length > 0){
-      dispatch(endSearch(data.categories));
-    }
   }
 }
 
@@ -103,15 +100,6 @@ export let toggleVenue = (payload) => {
  return (dispatch) => {
   return dispatch({
     type : types.SELECTED_MARKER,
-    payload: payload
-  });
- }
-}
-
-export let hideViewButton = (payload) => {
- return (dispatch) => {
-  return dispatch({
-    type : types.DISABLE_MARKER_CLICK,
     payload: payload
   });
  }
