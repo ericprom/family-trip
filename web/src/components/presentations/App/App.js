@@ -9,15 +9,14 @@ class App extends Component {
       <div>
         <Header />
       	<Row>
-      		<Col>
-            <div style={{marginLeft: `15px`,marginRight: `15px`}}>
-      			 <Forecast />
-            </div>
-      		</Col>
-      	</Row>
-      	<Row>
       		<Col xs={12} sm={8}>
-            <div style={{height: (window.innerHeight-50) + 'px', overflowY: 'scroll', margin: `10px`}}>
+            <div style={{height: (window.innerHeight-50) + 'px', overflowY: 'scroll', margin: `0px 10px 10px 10px`}}> <Row>
+              <Col>
+                <div style={{marginLeft: `15px`,marginRight: `15px`}}>
+                 <Forecast />
+                </div>
+              </Col>
+            </Row>
       			 <Foursquare />
             </div>
       		</Col>

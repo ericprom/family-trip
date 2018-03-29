@@ -49,7 +49,7 @@ export default (props) => {
         <p>
           <Button className={bntClass} bsStyle="default" 
           onClick={() => onViewClick(item)}>
-            <i className="fa fa-map-marker-alt" /> View Map
+            <i className="fa fa-map-marker-alt" /> ดูตำแหน่ง
           </Button>
         </p>
       </Thumbnail>
