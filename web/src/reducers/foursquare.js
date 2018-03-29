@@ -1,6 +1,7 @@
 import * as types from '../actions/mutation-types'
 
 export let foursquare = (state={items:[],categories:[]},action) => {
+    let categories = []
     switch(action.type){
         case types.START_SEARCH:
             return {
@@ -14,7 +15,7 @@ export let foursquare = (state={items:[],categories:[]},action) => {
                 categories : action.payload
             }
         case types.SELECTED_CATEGORY:
-            let categories = categories.items.map(item => {
+            categories = categories.items.map(item => {
                 if(item.id === action.payload.id){
                     return {...item, highlighted: true}
                 }

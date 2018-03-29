@@ -14,26 +14,12 @@ class Foursquare extends Component {
     })
   }
 
-  flatten = (into, node) => {
-    if(node == null) return into;
-    if(Array.isArray(node)) return node.reduce(this.flatten, into);
-    into.push(node);
-    return this.flatten(into, node.categories);
-  }
-
   render() {
 
     let { foursquare } = this.props;
 
     if(foursquare.categories.length >= 1){
-      // let categories = foursquare.categories
-      // let groupCategories = []
-      // categories.forEach((category)=>{
-      //   category['main'] = category
-      //   category['categories'] = this.flatten([], category.categories)
-      //   groupCategories.push(category)
-      // })
-      // console.log(groupCategories)
+
     }
 
     return (

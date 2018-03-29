@@ -1,6 +1,5 @@
 import * as types from '../actions/mutation-types'
-
-export let google = (state={ center: {lat: 13.7978114, lng: 100.4627011}},action) => {
+export let google = (state={center:{lat: 13.8150063, lng: 100.5554507}},action) => {
     switch(action.type){
         case types.SET_MAP_CENTER:
             return{

@@ -11,7 +11,12 @@ class Header extends Component {
 	componentDidMount() {
     	//this.loadRecommendedVenues();
     	this.loadCategories();
-    	this.loadVenues();
+    	this.loadVenues({
+    		'categoryId': '4d4b7105d754a06377d81259',
+	        'intent':'browse',
+	        'radius': 5000,
+    		'limit': 20,
+    	});
   	}
 
 	onPlacesChanged = (data) => {
@@ -28,7 +33,6 @@ class Header extends Component {
 
   	loadCategories = () => {
 	    this.props.actions.fetchData('venues/categories?')
-
   	}
 
   	loadRecommendedVenues = () => {
@@ -44,16 +48,14 @@ class Header extends Component {
 	    }
   	}
 
-  	loadVenues = () => {
+  	loadVenues = (queryObj = {}) => {
 	    let { google } = this.props
 	    if(google.center){
 	      	let ll = [google.center.lat,google.center.lng].join(',')
-	      	this.props.actions.fetchData('venues/search?',{
-	        	'll': ll,
-	        	'intent':'browse',
-	        	'radius': 20000,
-	        	'limit': 50
-	      	})
+	      	let query = Object.assign({
+	        	'll': ll
+	      	}, queryObj)
+	      	this.props.actions.fetchData('venues/search?',query)
 
 	      	// this.props.forecast.fetchData('locations/v1/cities/geoposition/search?',{
 	      	//   'q': ll
