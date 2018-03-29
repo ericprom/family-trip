@@ -14,7 +14,7 @@ class SearchBox extends Component {
       <StandaloneSearchBox
         ref='search'
         onPlacesChanged={() => this.props.onPlacesChanged(this.refs.search)}>
-        <input
+        <input style={{ width: `370px` }}
           type="text"
           placeholder="ค้นหาสถานที่เที่ยว"
           className="form-control"

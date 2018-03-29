@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, ListGroupItem} from 'react-bootstrap';
+import { Col, Button, Thumbnail } from 'react-bootstrap';
 
 export default (props) => {
   
@@ -13,25 +13,23 @@ export default (props) => {
      props.onViewClick(item);
   }
 
-  const onToggleClick = (item) => {
-     props.onToggleClick(item);
-  }
-
-  let bntClass = 'pull-right btn-xs btn-default';
+  let bntClass = 'btn-block btn-default';
   if(item.highlighted){
-    bntClass = 'pull-right btn-xs btn-danger';
+    bntClass = 'btn-block btn-danger';
   }
 
   return (
-      <ListGroupItem>
-        <span style={{marginLeft: 10+'px'}}
-          onClick={() => onToggleClick(item)}>
-          {item.name}
-        </span>
-        <Button className={bntClass}
+    <Col xs={12} sm={6}>
+      <Thumbnail src="http://via.placeholder.com/242x200" alt="242x200">
+        <h3>{item.name}</h3>
+        <p>Description</p>
+        <p>
+          <Button className={bntClass} bsStyle="default" 
           onClick={() => onViewClick(item)}>
-          <i className="fa fa-map-marker-alt"></i>
-        </Button>
-      </ListGroupItem>
+            <i className="fa fa-map-marker-alt" /> View Map
+          </Button>
+        </p>
+      </Thumbnail>
+    </Col>
   )
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ListItem } from '../../presentations';
-import { ListGroup } from 'react-bootstrap';
+import { Row } from 'react-bootstrap';
 import { bindActionCreators } from "redux";
 import { connect } from 'react-redux';
 import * as foursquareActions from '../../../actions/foursquare';
@@ -25,17 +25,15 @@ class Foursquare extends Component {
     let { foursquare } = this.props;
 
     return (
-      <div style={{height: 450 + 'px', overflowY: 'scroll'}}>
-        <ListGroup style={{textAlign: 'left'}}>
-          {
-            foursquare.items.map((item, id) => {
-              return <ListItem 
-                key={id} id={id} item={item} disableViewButton={foursquare.disableViewButton}
-                onToggleClick={this.onToggleClick}
-                onViewClick={this.onViewClick}/>;
-            })}
-        </ListGroup>
-      </div>
+      <Row>
+        {
+          foursquare.items.map((item, id) => {
+            return <ListItem 
+              key={id} id={id} item={item} disableViewButton={foursquare.disableViewButton}
+              onToggleClick={this.onToggleClick}
+              onViewClick={this.onViewClick}/>;
+          })}
+      </Row>
     );
   }
 }

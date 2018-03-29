@@ -1,8 +1,8 @@
 import App from './App/App'
 import ForecastItem from './ForecastItem'
 import ListItem from './ListItem'
-import Map from './MapItem/Map'
-import SearchBox from './MapItem/SearchBox'
+import Map from './MapItem'
+import SearchBox from './SearchBox'
 
 export {
 	App,

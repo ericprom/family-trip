@@ -18,7 +18,7 @@ class Map extends Component {
         ref='map'
         defaultZoom={this.props.zoom}
         center={this.props.center}
-        onCenterChanged={() => this.onCenterChanged.bind(this.refs.map)}>
+        onCenterChanged={() => this.props.onCenterChanged(this.refs.map)}>
         {
           this.props.markers.map(marker => {
 
@@ -33,7 +33,7 @@ class Map extends Component {
               options={option}
               key={marker.id}
               position={marker.location}
-              onClick={() => this.onMarkerClick.bind(marker)}
+              onClick={() => this.props.onMarkerClick(marker)}
             />
           })
         }

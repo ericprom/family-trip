@@ -1,26 +1,29 @@
 import React, { Component } from 'react'
 import './App.css'
-import {Col, Grid, Row} from 'react-bootstrap'
-import { Forecast, Googlemap, Foursquare} from '../../containers'
+import { Col, Row } from 'react-bootstrap'
+import { Header, Forecast, Googlemap, Foursquare} from '../../containers'
 
 class App extends Component {
   render() {
     return (
-      <Grid>
+      <div>
+        <Header />
       	<Row>
       		<Col>
       			<Forecast />
       		</Col>
       	</Row>
       	<Row>
-      		<Col xs={4}>
-      			<Foursquare />
+      		<Col xs={12} sm={8}>
+            <div style={{height: (window.innerHeight-50) + 'px', overflowY: 'scroll', marginLeft: `15px`}}>
+      			 <Foursquare />
+            </div>
       		</Col>
-      		<Col xs={8}>
+      		<Col xsHidden sm={4} style={{paddingRight: `0px`,paddingLeft: `0px`}}>
       			<Googlemap />
       		</Col>
       	</Row>
-      </Grid>
+      </div>
     );
   }
 }

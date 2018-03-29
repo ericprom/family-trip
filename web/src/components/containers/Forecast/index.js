@@ -10,10 +10,10 @@ class Forecast extends Component {
 
     let { google } = this.props
     if(google.center){
-      let ll = [google.center.lat,google.center.lng].join(',')
-      this.props.forecast.fetchData('locations/v1/cities/geoposition/search?',{
-        'q': ll
-      })
+      // let ll = [google.center.lat,google.center.lng].join(',')
+      // this.props.forecast.fetchData('locations/v1/cities/geoposition/search?',{
+      //   'q': ll
+      // })
     }
   }
 
