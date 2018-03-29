@@ -1,37 +1,29 @@
-import React, { Component } from 'react';
-import { ListItem } from '../../presentations';
-import { Row } from 'react-bootstrap';
-import { bindActionCreators } from "redux";
-import { connect } from 'react-redux';
-import * as foursquareActions from '../../../actions/foursquare';
+import React, { Component } from 'react'
+import { ListItem } from '../../presentations'
+import { Row } from 'react-bootstrap'
+import { bindActionCreators } from "redux"
+import { connect } from 'react-redux'
+import * as foursquareActions from '../../../actions/foursquare'
 
 class Foursquare extends Component {
 
   onViewClick = (data) => {
-    this.props.actions.toggleVenue(data);
+    this.props.actions.toggleVenue(data)
     this.props.actions.setMapCenter({
       lat: data.location.lat, lng: data.location.lng
-    });
-  };
-
-  onToggleClick = (data) => {
-    if(data.categories && data.categories.length > 0){
-      this.props.actions.loadMore(data);
-    }
-  };
+    })
+  }
 
   render() {
 
     let { foursquare } = this.props;
-
     return (
       <Row>
         {
           foursquare.items.map((item, id) => {
             return <ListItem 
-              key={id} id={id} item={item} disableViewButton={foursquare.disableViewButton}
-              onToggleClick={this.onToggleClick}
-              onViewClick={this.onViewClick}/>;
+              key={id} id={id} item={item}
+              onViewClick={this.onViewClick}/>
           })}
       </Row>
     );
@@ -41,12 +33,12 @@ class Foursquare extends Component {
 const mapStateToProps = (state, ownProps) => ({  
   foursquare: state.foursquare,
   google: state.google
-});
+})
 
 const mapDispatchToProps = (dispatch) => {
   return {
       actions: bindActionCreators(foursquareActions, dispatch)
-  };
+  }
 }
 
 const FoursquareContainer = connect(  

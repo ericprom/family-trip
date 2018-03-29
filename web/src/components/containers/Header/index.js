@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import { SearchBox } from '../../presentations'
 import { Navbar } from 'react-bootstrap'
 import * as foursquareActions from '../../../actions/foursquare'
+import * as weatherActions from '../../../actions/weather'
 
 class Header extends Component {
 
@@ -29,9 +30,9 @@ class Header extends Component {
 	      	this.props.actions.fetchData('venues/explore?',{
 	        	'll': ll
 	      	})
-	      	// this.props.forecast.fetchData('locations/v1/cities/geoposition/search?',{
-	      	//   'q': ll
-	      	// })
+	      	this.props.forecast.fetchData('locations/v1/cities/geoposition/search?',{
+	      	  'q': ll
+	      	})
 	    }
   	}
 
@@ -66,7 +67,8 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-      actions: bindActionCreators(foursquareActions, dispatch)
+      actions: bindActionCreators(foursquareActions, dispatch),
+      forecast: bindActionCreators(weatherActions, dispatch),
   };
 }
 

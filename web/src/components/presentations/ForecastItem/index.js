@@ -27,13 +27,13 @@ class ForecastItem extends Component {
           backBackgroundColor="#fff">
           <div ref='flipper'>
             <div style={{textAlign: 'left'}}>
-              กลางวัน: <Moment format="DD/MM/YYYY">{this.props.item.Date}</Moment>
+              กลางวัน: {this.props.item.Temperature.Minimum.Value+'°C/'+this.props.item.Temperature.Maximum.Value+'°C'}
             </div>
             <div style={{textAlign: 'center'}}>
               <i className={dayIcon}></i>
             </div>
             <div style={{textAlign: 'left'}}>
-              {this.props.item.Temperature.Minimum.Value+'/'+this.props.item.Temperature.Maximum.Value}
+              <Moment format="DD/MM/YYYY">{this.props.item.Date}</Moment>
             </div>
             <div style={{textAlign: 'left'}}>
               {this.props.item.Day.IconPhrase}
@@ -41,13 +41,13 @@ class ForecastItem extends Component {
           </div>
           <div ref='flipper'>
             <div style={{textAlign: 'left'}}>
-              กลางคืน: <Moment format="DD/MM/YYYY">{this.props.item.Date}</Moment>
+              กลางคืน: {this.props.item.Temperature.Minimum.Value+'°C/'+this.props.item.Temperature.Maximum.Value+'°C'}
             </div>
             <div style={{textAlign: 'center'}}>
               <i className={nightIcon}></i>
             </div>
             <div style={{textAlign: 'left'}}>
-              {this.props.item.Temperature.Minimum.Value+'/'+this.props.item.Temperature.Maximum.Value}
+              <Moment format="DD/MM/YYYY">{this.props.item.Date}</Moment>
             </div>
             <div style={{textAlign: 'left'}}>
               {this.props.item.Night.IconPhrase}

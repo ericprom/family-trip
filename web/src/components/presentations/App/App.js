@@ -10,7 +10,9 @@ class App extends Component {
         <Header />
       	<Row>
       		<Col>
-      			<Forecast />
+            <div style={{marginLeft: `15px`,marginRight: `15px`}}>
+      			 <Forecast />
+            </div>
       		</Col>
       	</Row>
       	<Row>
