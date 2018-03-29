@@ -17,11 +17,11 @@ class App extends Component {
       	</Row>
       	<Row>
       		<Col xs={12} sm={8}>
-            <div style={{height: (window.innerHeight-50) + 'px', overflowY: 'scroll', marginLeft: `15px`}}>
+            <div style={{height: (window.innerHeight-50) + 'px', overflowY: 'scroll', margin: `10px`}}>
       			 <Foursquare />
             </div>
       		</Col>
-      		<Col xsHidden sm={4} style={{paddingRight: `0px`,paddingLeft: `0px`}}>
+      		<Col xsHidden sm={4} style={{padding: `0px`}}>
       			<Googlemap />
       		</Col>
       	</Row>

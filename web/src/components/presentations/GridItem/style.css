@@ -1,0 +1,15 @@
+.thumbnail {
+    height:450px;
+    background-color:#FFFFFF;
+    margin-top:10px;
+    overflow: hidden;
+}
+
+.thumbnail>img {
+    display: block;
+  	width: 100%;
+  	background-size: cover;
+  	background-position: center;
+  	padding-bottom: 0;
+  	height: 300px;
+}

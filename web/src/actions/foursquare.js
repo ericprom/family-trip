@@ -5,8 +5,10 @@ import * as types from './mutation-types'
 
 const fourSquare = {
   baseUrl: 'https://api.foursquare.com/v2/',
-  clientId: 'J4EKPOE2HI1N5NDO5ZPDV4HXH1FFKZDWEOOLNA1MTJDUD2FE',
-  clientSecret: 'PJOQIQLFJTPVP3IHN4HGRPK2RSFAHOHBRJTJ4PJEOYX4T5PV'
+  //clientId: 'J4EKPOE2HI1N5NDO5ZPDV4HXH1FFKZDWEOOLNA1MTJDUD2FE',
+  //clientSecret: 'PJOQIQLFJTPVP3IHN4HGRPK2RSFAHOHBRJTJ4PJEOYX4T5PV'
+  clientId: '4PO4XE4IKRI5ZPLIPSDVUNJS1QPUMFWVEWNROKIXE1WAQZIO',
+  clientSecret: 'BV1GZROHFTBU3S2X3TBA1KIL3VACDQ3T0I0OBAL5COJY1RRR'
 }
 
 
@@ -43,6 +45,16 @@ export let encodeQueryData = (data) =>{
   return ret.join('&');
 }
 
+export let generatePhotoPath = (photos) =>{
+  var size = '300x500';
+  return photos.map((photo) => {
+    return {
+      ...photo,
+      path: photo.prefix+size+photo.suffix
+    }
+  })
+}
+
 export let fetchData = (path, queryObj = {}) => {
   var query = Object.assign({ 
     'client_id': fourSquare.clientId, 
@@ -67,6 +79,15 @@ export let fetchData = (path, queryObj = {}) => {
               });
             }
           });
+
+          venues.forEach(venue =>{
+            axios.get(fourSquare.baseUrl+'venues/'+venue.id+'/photos?'+encodeQueryData(query)).then((response) => {
+              if(response.data.response.photos.count > 0){
+                venue['photos'] = this.generatePhotoPath(response.data.response.photos.items)
+              }
+            })
+          })
+
           dispatch(endVenueSearch(venues));
           dispatch(addMapMarkers(venues));
         }
@@ -75,8 +96,16 @@ export let fetchData = (path, queryObj = {}) => {
           dispatch(endCategorySearch(response.data.response.categories));
         }
         if(response.data.response.venues){
-          dispatch(endVenueSearch(response.data.response.venues));
-          dispatch(addMapMarkers(response.data.response.venues));
+          let venues = response.data.response.venues;
+          venues.forEach(venue =>{
+            axios.get(fourSquare.baseUrl+'venues/'+venue.id+'/photos?'+encodeQueryData(query)).then((response) => {
+              if(response.data.response.photos.count > 0){
+                venue['photos'] = this.generatePhotoPath(response.data.response.photos.items)
+              }
+            })
+          })
+          dispatch(endVenueSearch(venues));
+          dispatch(addMapMarkers(venues));
         }
       },
       (err) => {

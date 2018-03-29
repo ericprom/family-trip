@@ -1,5 +1,6 @@
 import React from 'react'
 import { Col, Button, Thumbnail } from 'react-bootstrap'
+import './style.css';
 
 export default (props) => {
   
@@ -26,15 +27,20 @@ export default (props) => {
     bntClass = 'btn-block btn-danger'
   }
 
+  let poster = "http://via.placeholder.com/386x300?text="+item.name
+  if(item.photos && item.photos.length >= 1){
+    poster = item.photos[0].path
+  }
+
   return (
     <Col xs={12} sm={6}>
-      <Thumbnail src="http://via.placeholder.com/242x200" alt="242x200">
+      <Thumbnail src={poster} alt="poster">
         <h3>{item.name}</h3>
         <p>
         {
           categories.map((item, id) => {
             return <span key={item.id}>
-              <img src={item.icon.prefix+'bg_32'+item.icon.suffix} style={{width: `15px`}}/>
+              <img src={item.icon.prefix+'bg_32'+item.icon.suffix} style={{width: `15px`}} alt="icon"/>
               <span style={{marginLeft: `5px`}}>{item.name}</span>
             </span>
           })

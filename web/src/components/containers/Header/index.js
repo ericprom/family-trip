@@ -42,9 +42,9 @@ class Header extends Component {
 	      	this.props.actions.fetchData('venues/explore?',{
 	        	'll': ll
 	      	})
-	      	// this.props.forecast.fetchData('locations/v1/cities/geoposition/search?',{
-	      	//   'q': ll
-	      	// })
+	      	this.props.forecast.fetchData('locations/v1/cities/geoposition/search?',{
+	      	  'q': ll
+	      	})
 	    }
   	}
 
@@ -57,9 +57,9 @@ class Header extends Component {
 	      	}, queryObj)
 	      	this.props.actions.fetchData('venues/search?',query)
 
-	      	// this.props.forecast.fetchData('locations/v1/cities/geoposition/search?',{
-	      	//   'q': ll
-	      	// })
+	      	this.props.forecast.fetchData('locations/v1/cities/geoposition/search?',{
+	      	  'q': ll
+	      	})
 	    }
   	}
 
